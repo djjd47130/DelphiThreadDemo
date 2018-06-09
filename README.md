@@ -11,11 +11,13 @@ Far too many Delphi users make the mistake of thinking a thread is some sort of 
 
 Simply put, the VCL framework of Delphi is not thread safe. While there are many ways to integrate a thread into your UI, there is no single one-size-fits-all solution. It will always vary depending on what you are trying to accomplish. Most of the time, people want to accomplish better performance (speed). But that is very rarely ever done by using a thread. Instead, the most common scenarios where a thread is integrated into a user interface is to keep that UI responsive during a long task.
 
-Let's take a look at what a thread actually is. For this, we will imagine a simple application with only a single button which downloads a file from the internet when clicked. The application already has one main thread which is used for the entire UI. On the Windows platform, this means sending/receiving Windows messages, drawing to a control canvas, recognizing user interaction, etc. This thread is essentially a giant loop which is spinning around really fast. For every revolution of this spinning thread, certain pieces of code are executed.
+## Let's take a look at what a thread actually is. 
+
+For this, we will imagine a simple application with only a single button which downloads a file from the internet when clicked. The application already has one main thread which is used for the entire UI. On the Windows platform, this means sending/receiving Windows messages, drawing to a control canvas, recognizing user interaction, etc. This thread is essentially a giant loop which is spinning around really fast. For every revolution of this spinning thread, certain pieces of code are executed.
 
 In a single threaded environment, this file download would block this loop from spinning, until the download is finished. During this time, this thread is no longer able to do any UI updates, detect user clicks, or anything. This is what causes Windows to put (Not Responding) in the title of such forms, because, well, just like it says, it's not responding.
 
-This is where threads come in. It needs to respond to Windows. Instead of blocking the main UI thread with this giant file download, you could put that file download into a thread. It's just that simple, right?
+This is where additional threads come in. It needs to respond to Windows. Instead of blocking the main UI thread with this giant file download, you could put that file download into another thread. It's just that simple, right?
 
 ## Not so much.
 
