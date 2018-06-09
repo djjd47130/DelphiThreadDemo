@@ -1,6 +1,8 @@
 # DelphiThreadDemo
 Demonstrating different ways to use threads in Delphi
 
+![Thread](/ThreadIcon.png "Thread")
+
 ## Can I Use VCL From a Thread?
 
 # NO!
