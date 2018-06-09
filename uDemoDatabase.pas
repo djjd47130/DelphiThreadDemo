@@ -1,5 +1,9 @@
 unit uDemoDatabase;
 
+(*
+  Demonstrates how to use databases via ADO in threads.
+*)
+
 interface
 
 uses
@@ -20,6 +24,7 @@ type
     Memo1: TMemo;
     Panel3: TPanel;
     btnExec: TBitBtn;
+    procedure btnExecClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,5 +37,12 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmDemoDatabase.btnExecClick(Sender: TObject);
+begin
+  inherited;
+  //TODO: Execute query and show results in grid...
+
+end;
 
 end.

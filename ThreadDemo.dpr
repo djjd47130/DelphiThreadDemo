@@ -25,14 +25,7 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  TStyleManager.TrySetStyle('Windows10 Dark');
   Application.Title := 'JD Thread Demo';
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmDemoHttpServer, frmDemoHttpServer);
-  Application.CreateForm(TfrmDemoWindowsMessages, frmDemoWindowsMessages);
-  Application.CreateForm(TfrmDemoThreadPools, frmDemoThreadPools);
-  Application.CreateForm(TfrmDemoDatabase, frmDemoDatabase);
-  Application.CreateForm(TfrmDemoThreadQueue, frmDemoThreadQueue);
-  Application.CreateForm(TfrmDemoOmniThreads, frmDemoOmniThreads);
   Application.Run;
 end.

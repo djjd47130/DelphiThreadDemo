@@ -18,9 +18,8 @@ inherited frmDemoDatabase: TfrmDemoDatabase
     Font.Style = [fsBold]
     ParentFont = False
     Layout = tlCenter
-    ExplicitLeft = -2
-    ExplicitTop = 231
-    ExplicitHeight = 219
+    ExplicitWidth = 370
+    ExplicitHeight = 68
   end
   object Label12: TLabel
     AlignWithMargins = True
@@ -129,10 +128,6 @@ inherited frmDemoDatabase: TfrmDemoDatabase
       ScrollBars = ssBoth
       TabOrder = 0
       WordWrap = False
-      ExplicitLeft = 107
-      ExplicitTop = 4
-      ExplicitWidth = 669
-      ExplicitHeight = 111
     end
   end
   object Panel3: TPanel
@@ -143,7 +138,6 @@ inherited frmDemoDatabase: TfrmDemoDatabase
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = 234
     object btnExec: TBitBtn
       AlignWithMargins = True
       Left = 643
@@ -154,7 +148,7 @@ inherited frmDemoDatabase: TfrmDemoDatabase
       Align = alRight
       Caption = 'Execute Query'
       TabOrder = 0
-      ExplicitLeft = 3
+      OnClick = btnExecClick
     end
   end
 end

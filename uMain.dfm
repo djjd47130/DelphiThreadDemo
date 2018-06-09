@@ -127,7 +127,7 @@ object frmMain: TfrmMain
               Caption = 'Item'
             end>
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = clNavy
+          Font.Color = 16744448
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
@@ -140,6 +140,7 @@ object frmMain: TfrmMain
             006C00610063006500640000000000FFFFFFFFFFFFFFFF00000000FFFFFFFF00
             0000001E6200790020007400690074006C006500730020006F00660020006500
             610063006800200063006F006E00740065006E007400200066006F0072006D00}
+          StyleElements = [seClient, seBorder]
           ReadOnly = True
           RowSelect = True
           ParentFont = False
