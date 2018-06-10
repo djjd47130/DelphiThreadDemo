@@ -78,7 +78,7 @@ begin
   EmbedForm(TfrmDemoHttpServer,       'HTTP Server');
   EmbedForm(TfrmDemoThreadPools,      'Thread Pools');
   EmbedForm(TfrmDemoOmniThreads,      'Omni Threads');
-  EmbedForm(TfrmDemoHurtMyCpu,        'Hurt MyCPU');
+  EmbedForm(TfrmDemoHurtMyCpu,        'Hurt My CPU');
 end;
 
 procedure TfrmMain.EmbedForm(AFormClass: TDemoFormClass;

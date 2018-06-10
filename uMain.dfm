@@ -3,10 +3,10 @@ object frmMain: TfrmMain
   Top = 0
   Caption = 'JD Thread Demo'
   ClientHeight = 461
-  ClientWidth = 822
+  ClientWidth = 804
   Color = clWhite
   Constraints.MinHeight = 500
-  Constraints.MinWidth = 800
+  Constraints.MinWidth = 820
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23,7 +23,7 @@ object frmMain: TfrmMain
   object Pages: TPageControl
     Left = 0
     Top = 0
-    Width = 822
+    Width = 804
     Height = 414
     ActivePage = TabSheet8
     Align = alTop
@@ -40,7 +40,7 @@ object frmMain: TfrmMain
         AlignWithMargins = True
         Left = 5
         Top = 5
-        Width = 804
+        Width = 786
         Height = 52
         Margins.Left = 5
         Margins.Top = 5
@@ -63,7 +63,7 @@ object frmMain: TfrmMain
         AlignWithMargins = True
         Left = 10
         Top = 72
-        Width = 794
+        Width = 776
         Height = 41
         Margins.Left = 10
         Margins.Top = 10
@@ -87,7 +87,7 @@ object frmMain: TfrmMain
         AlignWithMargins = True
         Left = 3
         Top = 126
-        Width = 808
+        Width = 790
         Height = 247
         Align = alClient
         BevelOuter = bvNone
@@ -159,7 +159,7 @@ object frmMain: TfrmMain
   object Stat: TStatusBar
     Left = 0
     Top = 438
-    Width = 822
+    Width = 804
     Height = 23
     Cursor = crHandPoint
     Panels = <
