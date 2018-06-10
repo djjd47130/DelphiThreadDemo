@@ -156,7 +156,7 @@ object frmMain: TfrmMain
       end
     end
   end
-  object StatusBar1: TStatusBar
+  object Stat: TStatusBar
     Left = 0
     Top = 438
     Width = 822
@@ -167,7 +167,7 @@ object frmMain: TfrmMain
         Text = 'Created by Jerry Dodge for "Can I Use VCL From Threads?"'
         Width = 50
       end>
-    OnClick = StatusBar1Click
+    OnClick = StatClick
     ExplicitWidth = 784
   end
 end

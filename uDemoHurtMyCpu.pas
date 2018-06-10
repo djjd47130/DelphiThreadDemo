@@ -19,6 +19,7 @@ type
     btnStop: TBitBtn;
     txtCountTo: TEdit;
     Tmr: TTimer;
+    Label12: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

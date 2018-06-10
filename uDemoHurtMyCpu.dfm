@@ -8,7 +8,7 @@ inherited frmDemoHurtMyCpu: TfrmDemoHurtMyCpu
   object Label2: TLabel
     AlignWithMargins = True
     Left = 3
-    Top = 36
+    Top = 111
     Width = 774
     Height = 36
     Align = alTop
@@ -26,14 +26,41 @@ inherited frmDemoHurtMyCpu: TfrmDemoHurtMyCpu
     Layout = tlCenter
     WordWrap = True
     StyleElements = [seClient, seBorder]
+    ExplicitTop = 36
     ExplicitWidth = 435
+  end
+  object Label12: TLabel
+    AlignWithMargins = True
+    Left = 10
+    Top = 10
+    Width = 760
+    Height = 55
+    Margins.Left = 10
+    Margins.Top = 10
+    Margins.Right = 10
+    Margins.Bottom = 10
+    Align = alTop
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 
+      'This demonstrates a heavy load on your processor by spawning mul' +
+      'tiple threads which each do heavy amounts of work with no delay.'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    Layout = tlCenter
+    WordWrap = True
+    ExplicitWidth = 680
   end
   object lstThreads: TListView
     AlignWithMargins = True
     Left = 3
-    Top = 232
+    Top = 200
     Width = 774
-    Height = 215
+    Height = 247
     Align = alBottom
     Anchors = [akLeft, akTop, akRight, akBottom]
     BorderStyle = bsNone
@@ -61,12 +88,13 @@ inherited frmDemoHurtMyCpu: TfrmDemoHurtMyCpu
   end
   object Panel1: TPanel
     Left = 0
-    Top = 0
+    Top = 75
     Width = 780
     Height = 33
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitTop = 0
     ExplicitWidth = 397
     object Label1: TLabel
       AlignWithMargins = True
@@ -120,7 +148,7 @@ inherited frmDemoHurtMyCpu: TfrmDemoHurtMyCpu
   object Tmr: TTimer
     Interval = 400
     OnTimer = TmrTimer
-    Left = 72
-    Top = 120
+    Left = 16
+    Top = 152
   end
 end

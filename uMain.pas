@@ -27,14 +27,14 @@ type
     Label12: TLabel;
     pMain: TGridPanel;
     lstMenu: TListView;
-    StatusBar1: TStatusBar;
+    Stat: TStatusBar;
     procedure FormCreate(Sender: TObject);
     procedure PagesChange(Sender: TObject);
     procedure lstMenuSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
     procedure FormShow(Sender: TObject);
     procedure FormResize(Sender: TObject);
-    procedure StatusBar1Click(Sender: TObject);
+    procedure StatClick(Sender: TObject);
   private
     procedure EmbedForm(AFormClass: TDemoFormClass;
       ACaption: String);
@@ -139,7 +139,7 @@ begin
   FormResize(nil);
 end;
 
-procedure TfrmMain.StatusBar1Click(Sender: TObject);
+procedure TfrmMain.StatClick(Sender: TObject);
 begin
   //TODO: Open web page...
 end;
