@@ -3,7 +3,7 @@ object frmMain: TfrmMain
   Top = 0
   Caption = 'JD Thread Demo'
   ClientHeight = 461
-  ClientWidth = 784
+  ClientWidth = 822
   Color = clWhite
   Constraints.MinHeight = 500
   Constraints.MinWidth = 800
@@ -23,7 +23,7 @@ object frmMain: TfrmMain
   object Pages: TPageControl
     Left = 0
     Top = 0
-    Width = 784
+    Width = 822
     Height = 414
     ActivePage = TabSheet8
     Align = alTop
@@ -31,14 +31,16 @@ object frmMain: TfrmMain
     TabHeight = 28
     TabOrder = 0
     OnChange = PagesChange
+    ExplicitWidth = 784
     object TabSheet8: TTabSheet
       Caption = ' Home '
       ImageIndex = 7
+      ExplicitWidth = 776
       object Label11: TLabel
         AlignWithMargins = True
         Left = 5
         Top = 5
-        Width = 766
+        Width = 804
         Height = 52
         Margins.Left = 5
         Margins.Top = 5
@@ -61,7 +63,7 @@ object frmMain: TfrmMain
         AlignWithMargins = True
         Left = 10
         Top = 72
-        Width = 756
+        Width = 794
         Height = 41
         Margins.Left = 10
         Margins.Top = 10
@@ -85,7 +87,7 @@ object frmMain: TfrmMain
         AlignWithMargins = True
         Left = 3
         Top = 126
-        Width = 770
+        Width = 808
         Height = 247
         Align = alClient
         BevelOuter = bvNone
@@ -113,6 +115,7 @@ object frmMain: TfrmMain
             Value = 100.000000000000000000
           end>
         TabOrder = 0
+        ExplicitWidth = 770
         object lstMenu: TListView
           AlignWithMargins = True
           Left = 103
@@ -148,6 +151,7 @@ object frmMain: TfrmMain
           TabOrder = 0
           ViewStyle = vsReport
           OnSelectItem = lstMenuSelectItem
+          ExplicitTop = 0
         end
       end
     end
@@ -155,7 +159,7 @@ object frmMain: TfrmMain
   object StatusBar1: TStatusBar
     Left = 0
     Top = 438
-    Width = 784
+    Width = 822
     Height = 23
     Cursor = crHandPoint
     Panels = <
@@ -164,5 +168,6 @@ object frmMain: TfrmMain
         Width = 50
       end>
     OnClick = StatusBar1Click
+    ExplicitWidth = 784
   end
 end

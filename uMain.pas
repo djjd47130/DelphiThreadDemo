@@ -16,7 +16,8 @@ uses
   uDemoDatabase,
   uDemoHttpServer,
   uDemoThreadQueue,
-  uDemoOmniThreads;
+  uDemoOmniThreads,
+  uDemoHurtMyCpu;
 
 type
   TfrmMain = class(TForm)
@@ -61,6 +62,11 @@ begin
   PagesChange(nil);
 end;
 
+procedure TfrmMain.FormShow(Sender: TObject);
+begin
+  PopulateMenu;
+end;
+
 procedure TfrmMain.EmbedAllForms;
 begin
   EmbedForm(TfrmDemoDownload,         'Downloading');
@@ -72,6 +78,7 @@ begin
   EmbedForm(TfrmDemoHttpServer,       'HTTP Server');
   EmbedForm(TfrmDemoThreadPools,      'Thread Pools');
   EmbedForm(TfrmDemoOmniThreads,      'Omni Threads');
+  EmbedForm(TfrmDemoHurtMyCpu,        'Hurt MyCPU');
 end;
 
 procedure TfrmMain.EmbedForm(AFormClass: TDemoFormClass;
@@ -99,11 +106,6 @@ begin
   pMain.ColumnCollection[1].Value:= MenuWidth;
   pMain.ColumnCollection[0].Value:= W;
   pMain.ColumnCollection[2].Value:= W;
-end;
-
-procedure TfrmMain.FormShow(Sender: TObject);
-begin
-  PopulateMenu;
 end;
 
 function TfrmMain.MenuWidth: Integer;
