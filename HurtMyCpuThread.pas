@@ -60,7 +60,7 @@ end;
 
 procedure TThreadRef.Lock;
 begin
-  Flock.Enter;
+  FLock.Enter;
 end;
 
 end.

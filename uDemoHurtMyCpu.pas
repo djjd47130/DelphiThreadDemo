@@ -11,7 +11,7 @@ uses
 
 type
   TfrmDemoHurtMyCpu = class(TfrmDemoBase)
-    Label2: TLabel;
+    lblWarning: TLabel;
     lstThreads: TListView;
     Panel1: TPanel;
     Label1: TLabel;
@@ -20,12 +20,19 @@ type
     txtCountTo: TEdit;
     Tmr: TTimer;
     Label12: TLabel;
+    Bevel1: TBevel;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnSpawnClick(Sender: TObject);
     procedure btnStopClick(Sender: TObject);
     procedure TmrTimer(Sender: TObject);
+    procedure lstThreadsCustomDrawSubItem(Sender: TCustomListView;
+      Item: TListItem; SubItem: Integer; State: TCustomDrawState;
+      var DefaultDraw: Boolean);
+    procedure lstThreadsCustomDrawItem(Sender: TCustomListView; Item: TListItem;
+      State: TCustomDrawState; var DefaultDraw: Boolean);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
     FLock: TCriticalSection;
     FThreads: TObjectList<TThreadRef>;
@@ -44,11 +51,18 @@ implementation
 
 {$R *.dfm}
 
+uses
+  UICommon;
+
+{ TfrmDemoHurtMyCpu }
+
 procedure TfrmDemoHurtMyCpu.FormCreate(Sender: TObject);
 begin
+  inherited;
   {$IFDEF DEBUG}
   ReportMemoryLeaksOnShutdown:= True;
   {$ENDIF}
+  lblWarning.Caption:= 'WARNING: If you spawn more threads than you have CPU cores ('+IntToStr(System.CPUCount)+'), you could lock up your PC!';
   lstThreads.Align:= alClient;
   FLock:= TCriticalSection.Create;
   FThreads:= TObjectList<TThreadRef>.Create(False);
@@ -56,14 +70,60 @@ end;
 
 procedure TfrmDemoHurtMyCpu.FormDestroy(Sender: TObject);
 begin
+  inherited;
   FreeAndNil(FThreads);
   FreeAndNil(FLock);
 end;
 
 procedure TfrmDemoHurtMyCpu.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  Self.btnStopClick(nil);
+  inherited;
   FTerminated:= True;
+end;
+
+procedure TfrmDemoHurtMyCpu.FormCloseQuery(Sender: TObject;
+  var CanClose: Boolean);
+begin
+  inherited;
+  Self.btnStopClick(nil);
+end;
+
+procedure TfrmDemoHurtMyCpu.lstThreadsCustomDrawItem(Sender: TCustomListView;
+  Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
+begin
+  inherited;
+  //
+end;
+
+procedure TfrmDemoHurtMyCpu.lstThreadsCustomDrawSubItem(Sender: TCustomListView;
+  Item: TListItem; SubItem: Integer; State: TCustomDrawState;
+  var DefaultDraw: Boolean);
+var
+  Perc: Single;
+  R: TRect;
+  T: TThreadRef;
+begin
+  inherited;
+  if (SubItem = 3) then begin
+    DefaultDraw:= False;
+    FLock.Enter;
+    try
+      T:= FThreads[Item.Index];
+      T.Lock;
+      try
+        Perc:= T.Cur / T.CountTo;
+      finally
+        T.Unlock;
+      end;
+    finally
+      FLock.Leave;
+    end;
+    R:= ListViewCellRect(Sender, SubItem, Item.Index);
+    DrawProgressBar(Sender.Canvas, R, Perc);
+    SetBkMode(Sender.Canvas.Handle, TRANSPARENT); // <- will effect the next [sub]item
+  end else begin
+    DefaultDraw:= True;
+  end;
 end;
 
 procedure TfrmDemoHurtMyCpu.AddRef(ARef: TThreadRef);
@@ -166,7 +226,8 @@ begin
         I.Caption:= IntToStr(T.ThreadID);
         I.SubItems[0]:= IntToStr(T.Cur);
         I.SubItems[1]:= IntToStr(T.CountTo);
-        I.SubItems[2]:= FormatFloat('0.000%', (T.Cur / T.CountTo) * 100);
+        //I.SubItems[2]:= FormatFloat('0.000%', (T.Cur / T.CountTo) * 100);
+        I.Update;
       finally
         T.Unlock;
       end;

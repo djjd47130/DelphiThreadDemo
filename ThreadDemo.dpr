@@ -20,7 +20,9 @@ uses
   Vcl.Styles,
   DatabaseThread in 'DatabaseThread.pas',
   uDemoHurtMyCpu in 'uDemoHurtMyCpu.pas' {frmDemoHurtMyCpu},
-  HurtMyCpuThread in 'HurtMyCpuThread.pas';
+  HurtMyCpuThread in 'HurtMyCpuThread.pas',
+  Common in 'Common.pas',
+  UICommon in 'UICommon.pas';
 
 {$R *.res}
 
@@ -29,6 +31,5 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.Title := 'JD Thread Demo';
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmDemoHurtMyCpu, frmDemoHurtMyCpu);
   Application.Run;
 end.
