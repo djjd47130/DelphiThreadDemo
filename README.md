@@ -53,8 +53,10 @@ This project is still a work in progress, and I will soon be providing some samp
 
 Here's some direct links to related resources about VCL Thread Safety, in case you don't want to search...
 
- - Embarcadero - Using the Main VCL Thread
- - Embarcadero - Delphi Threading by Example
- - Stack Overflow - Delphi: Why VCL is not thread-safe? How can be?
- - Dr. Bob - Is the VCL thread-safe?
- - ThoughtCo - Synchronizing Threads and GUI in a Delphi Application
+<ul>
+                <li><a href="http://docs.embarcadero.com/products/rad_studio/delphiAndcpp2009/HelpUpdate2/EN/html/devwin32/win32_mthreadusemainthread_xml.html">Embarcadero - Using the Main VCL Thread</a></li>
+                <li><a href="http://edn.embarcadero.com/article/22411">Embarcadero - Delphi Threading by Example</a></li>
+                <li><a href="https://stackoverflow.com/questions/28655758/delphi-why-vcl-is-not-thread-safe-how-can-be">Stack Overflow - Delphi: Why VCL is not thread-safe? How can be?</a></li>
+                <li><a href="http://www.drbob42.com/uk-bug/hood-04.htm">Dr. Bob - Is the VCL thread-safe?</a></li>
+                <li><a href="https://www.thoughtco.com/synchronizing-threads-and-gui-delphi-application-1058159">ThoughtCo - Synchronizing Threads and GUI in a Delphi Application</a></li>
+            </ul>
