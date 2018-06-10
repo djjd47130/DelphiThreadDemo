@@ -6,10 +6,10 @@ inherited frmDemoHttpServer: TfrmDemoHttpServer
   object Label5: TLabel
     AlignWithMargins = True
     Left = 3
-    Top = 337
-    Width = 694
-    Height = 110
-    Align = alClient
+    Top = 304
+    Width = 774
+    Height = 143
+    Align = alBottom
     Alignment = taCenter
     Caption = 'Coming Soon'
     Font.Charset = DEFAULT_CHARSET
@@ -19,16 +19,12 @@ inherited frmDemoHttpServer: TfrmDemoHttpServer
     Font.Style = [fsBold]
     ParentFont = False
     Layout = tlCenter
-    ExplicitLeft = 6
-    ExplicitTop = 6
-    ExplicitWidth = 370
-    ExplicitHeight = 68
   end
   object Label12: TLabel
     AlignWithMargins = True
     Left = 10
     Top = 10
-    Width = 680
+    Width = 760
     Height = 55
     Margins.Left = 10
     Margins.Top = 10
@@ -49,27 +45,26 @@ inherited frmDemoHttpServer: TfrmDemoHttpServer
     ParentFont = False
     Layout = tlCenter
     WordWrap = True
+    ExplicitWidth = 680
   end
   object pMain: TPanel
     Left = 0
     Top = 75
-    Width = 700
-    Height = 259
+    Width = 780
+    Height = 198
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     BevelOuter = bvNone
     TabOrder = 0
-    Visible = False
     OnResize = pMainResize
-    ExplicitTop = 22
     object pSvr: TPanel
       Left = 0
       Top = 0
       Width = 320
-      Height = 259
+      Height = 198
       Align = alLeft
       TabOrder = 0
-      ExplicitHeight = 334
+      ExplicitHeight = 259
       object Label2: TLabel
         AlignWithMargins = True
         Left = 4
@@ -156,7 +151,7 @@ inherited frmDemoHttpServer: TfrmDemoHttpServer
         Left = 4
         Top = 101
         Width = 312
-        Height = 111
+        Height = 50
         Align = alTop
         Anchors = [akLeft, akTop, akRight, akBottom]
         BorderStyle = bsNone
@@ -175,17 +170,17 @@ inherited frmDemoHttpServer: TfrmDemoHttpServer
           end>
         TabOrder = 2
         ViewStyle = vsReport
-        ExplicitHeight = 186
+        ExplicitHeight = 111
       end
     end
     object pCli: TPanel
-      Left = 417
+      Left = 497
       Top = 0
       Width = 283
-      Height = 259
+      Height = 198
       Align = alRight
       TabOrder = 1
-      ExplicitHeight = 334
+      ExplicitHeight = 259
       object Label3: TLabel
         AlignWithMargins = True
         Left = 4

@@ -85,6 +85,8 @@ inherited frmDemoHurtMyCpu: TfrmDemoHurtMyCpu
     RowSelect = True
     TabOrder = 0
     ViewStyle = vsReport
+    ExplicitLeft = -2
+    ExplicitTop = 203
   end
   object Panel1: TPanel
     Left = 0
