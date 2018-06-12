@@ -90,35 +90,38 @@ Shows how to update a progress bar from a thread which is performing a lengthy t
 
 ### Critical Sections
 
-
+#### Coming Soon
 
 ### Windows Messages
 
-
+#### Coming Soon
 
 ### Queues
 
-
+#### Coming Soon
 
 ### Database
 
-
+#### Coming Soon
 
 ### HTTP Server
 
-
+#### Coming Soon
 
 ### Thread Pools
 
-
+#### Coming Soon
 
 ### Omni Threads
 
-
+#### Coming Soon
 
 ### Hurt My CPU
 
 ![Home](/Screenshots/SS-HurtMyCpu.png "Home")
+
+Demonstrates multiple threads consuming massive CPU cycles to load test your processor. 
+
 
 
 
