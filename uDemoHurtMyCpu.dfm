@@ -102,8 +102,6 @@ inherited frmDemoHurtMyCpu: TfrmDemoHurtMyCpu
     ViewStyle = vsReport
     OnCustomDrawItem = lstThreadsCustomDrawItem
     OnCustomDrawSubItem = lstThreadsCustomDrawSubItem
-    ExplicitLeft = -2
-    ExplicitTop = 211
   end
   object Panel1: TPanel
     Left = 0
@@ -113,8 +111,6 @@ inherited frmDemoHurtMyCpu: TfrmDemoHurtMyCpu
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 0
-    ExplicitWidth = 397
     object Label1: TLabel
       AlignWithMargins = True
       Left = 257
@@ -163,11 +159,22 @@ inherited frmDemoHurtMyCpu: TfrmDemoHurtMyCpu
       Align = alLeft
       TabOrder = 2
       Text = '2147483647'
-      ExplicitLeft = 307
+      ExplicitHeight = 21
+    end
+    object progCPU: TProgressBar
+      AlignWithMargins = True
+      Left = 423
+      Top = 3
+      Width = 354
+      Height = 27
+      Align = alClient
+      TabOrder = 3
+      ExplicitLeft = 568
+      ExplicitWidth = 209
     end
   end
   object Tmr: TTimer
-    Interval = 400
+    Interval = 250
     OnTimer = TmrTimer
     Left = 16
     Top = 160

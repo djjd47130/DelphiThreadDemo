@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uDemoBase, Vcl.ExtCtrls, Vcl.StdCtrls,
   Vcl.Buttons, Vcl.ComCtrls,
   System.SyncObjs, System.Generics.Collections,
-  HurtMyCpuThread;
+  HurtMyCpuThread,
+  CpuMonitor;
 
 type
   TfrmDemoHurtMyCpu = class(TfrmDemoBase)
@@ -21,6 +22,7 @@ type
     Tmr: TTimer;
     Label12: TLabel;
     Bevel1: TBevel;
+    progCPU: TProgressBar;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -198,7 +200,12 @@ var
   I: TListItem;
   X: Integer;
   T: TThreadRef;
+  Cpu: Double;
 begin
+
+  Cpu:= GetTotalCpuUsagePct;
+  progCPU.Position:= Trunc(Cpu);
+
   FLock.Enter;
   try
 

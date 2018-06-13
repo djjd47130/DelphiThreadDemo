@@ -142,6 +142,7 @@ end;
 procedure TfrmMain.StatClick(Sender: TObject);
 begin
   //TODO: Open web page...
+
 end;
 
 procedure TfrmMain.lstMenuSelectItem(Sender: TObject; Item: TListItem;

@@ -22,7 +22,8 @@ uses
   uDemoHurtMyCpu in 'uDemoHurtMyCpu.pas' {frmDemoHurtMyCpu},
   HurtMyCpuThread in 'HurtMyCpuThread.pas',
   Common in 'Common.pas',
-  UICommon in 'UICommon.pas';
+  UICommon in 'UICommon.pas',
+  CpuMonitor in 'CpuMonitor.pas';
 
 {$R *.res}
 

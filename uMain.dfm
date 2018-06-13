@@ -31,11 +31,9 @@ object frmMain: TfrmMain
     TabHeight = 28
     TabOrder = 0
     OnChange = PagesChange
-    ExplicitWidth = 784
     object TabSheet8: TTabSheet
       Caption = ' Home '
       ImageIndex = 7
-      ExplicitWidth = 776
       object Label11: TLabel
         AlignWithMargins = True
         Left = 5
@@ -115,7 +113,6 @@ object frmMain: TfrmMain
             Value = 100.000000000000000000
           end>
         TabOrder = 0
-        ExplicitWidth = 770
         object lstMenu: TListView
           AlignWithMargins = True
           Left = 103
@@ -136,13 +133,20 @@ object frmMain: TfrmMain
           Font.Style = [fsBold]
           HotTrackStyles = [htHandPoint, htUnderlineHot]
           Items.ItemData = {
-            05DA0000000300000000000000FFFFFFFFFFFFFFFF00000000FFFFFFFF000000
+            05A40100000600000000000000FFFFFFFFFFFFFFFF00000000FFFFFFFF000000
             00094D00610069006E0020004D0065006E00750000000000FFFFFFFFFFFFFFFF
             00000000FFFFFFFF000000001F4C0069007300740020006900740065006D0073
             002000640079006E0061006D006900630061006C006C00790020007200650070
             006C00610063006500640000000000FFFFFFFFFFFFFFFF00000000FFFFFFFF00
             0000001E6200790020007400690074006C006500730020006F00660020006500
-            610063006800200063006F006E00740065006E007400200066006F0072006D00}
+            610063006800200063006F006E00740065006E007400200066006F0072006D00
+            00000000FFFFFFFFFFFFFFFF00000000FFFFFFFF000000000000000000FFFFFF
+            FFFFFFFFFF00000000FFFFFFFF000000001E4C00690073007400200069007300
+            20006100750074006F006D00610074006900630061006C006C00790020006300
+            65006E007400650072006500640000000000FFFFFFFFFFFFFFFF00000000FFFF
+            FFFF0000000020770069007400680069006E002000690074007300200063006F
+            006E007400610069006E0065007200200069006E002000720075006E00740069
+            006D0065002E00}
           StyleElements = [seClient, seBorder]
           ReadOnly = True
           RowSelect = True
@@ -151,7 +155,6 @@ object frmMain: TfrmMain
           TabOrder = 0
           ViewStyle = vsReport
           OnSelectItem = lstMenuSelectItem
-          ExplicitTop = 0
         end
       end
     end
@@ -168,6 +171,5 @@ object frmMain: TfrmMain
         Width = 50
       end>
     OnClick = StatClick
-    ExplicitWidth = 784
   end
 end
