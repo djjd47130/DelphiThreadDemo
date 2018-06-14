@@ -1,13 +1,29 @@
 unit CpuMonitor;
 
+(*
+  Unit grabbed from the following Stack Overflow answer:
+  https://stackoverflow.com/questions/33571061/get-the-percentage-of-total-cpu-usage
+
+  Strictly speaking, this itself can be encapsulated inside of a thread with
+  a delay which can trigger events, similar to a timer, informing of the
+  latest processer usage of the computer. It's also anticipated to break
+  down the usage of each individual CPU core, instead of overall.
+  The mechanism used already supports monitoring the usage of a particular
+  process, so it may be optimized to only this process.
+*)
+
 interface
 
-function GetTotalCpuUsagePct : Double;
+///  <summary>
+///    Acquires the current percentage of usage of the computer's processor(s).
+///  </summary>
+function GetTotalCpuUsagePct: Double;
 
 implementation
 
 uses
-  SysUtils, DateUtils, Windows, PsAPI, TlHelp32, ShellAPI, Generics.Collections;
+  System.SysUtils, System.DateUtils, System.Generics.Collections,
+  Winapi.Windows, Winapi.PsAPI, Winapi.TlHelp32, Winapi.ShellAPI;
 
 type
   TProcessID = DWORD;
@@ -32,7 +48,7 @@ type
 
 var
   LatestProcessCpuUsageCache : TProcessCpuUsageList;
-  LastQueryTime : TDateTime;
+  //LastQueryTime : TDateTime;
 
 (* -------------------------------------------------------------------------- *)
 

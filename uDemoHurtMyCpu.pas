@@ -37,13 +37,14 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
     FLock: TCriticalSection;
-    FThreads: TObjectList<TThreadRef>;
+    FThreads: TObjectList<THurtMyCpuThread>;
     FTerminated: Boolean;
     procedure DoSpawn(const CountTo: Integer);
   public
-    procedure AddRef(ARef: TThreadRef);
-    procedure UpdateRef(ARef: TThreadRef);
-    procedure DeleteRef(ARef: TThreadRef);
+    procedure AddRef(ARef: THurtMyCpuThread);
+    procedure DeleteRef(ARef: THurtMyCpuThread);
+    procedure UpdateRef(ARef: THurtMyCpuThread);
+    function IsTerminated: Boolean;
   end;
 
 var
@@ -67,7 +68,7 @@ begin
   lblWarning.Caption:= 'WARNING: If you spawn more threads than you have CPU cores ('+IntToStr(System.CPUCount)+'), you could lock up your PC!';
   lstThreads.Align:= alClient;
   FLock:= TCriticalSection.Create;
-  FThreads:= TObjectList<TThreadRef>.Create(False);
+  FThreads:= TObjectList<THurtMyCpuThread>.Create(False);
 end;
 
 procedure TfrmDemoHurtMyCpu.FormDestroy(Sender: TObject);
@@ -75,6 +76,11 @@ begin
   inherited;
   FreeAndNil(FThreads);
   FreeAndNil(FLock);
+end;
+
+function TfrmDemoHurtMyCpu.IsTerminated: Boolean;
+begin
+  Result:= FTerminated;
 end;
 
 procedure TfrmDemoHurtMyCpu.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -103,7 +109,7 @@ procedure TfrmDemoHurtMyCpu.lstThreadsCustomDrawSubItem(Sender: TCustomListView;
 var
   Perc: Single;
   R: TRect;
-  T: TThreadRef;
+  T: THurtMyCpuThread;
 begin
   inherited;
   if (SubItem = 3) then begin
@@ -125,46 +131,6 @@ begin
     SetBkMode(Sender.Canvas.Handle, TRANSPARENT); // <- will effect the next [sub]item
   end else begin
     DefaultDraw:= True;
-  end;
-end;
-
-procedure TfrmDemoHurtMyCpu.AddRef(ARef: TThreadRef);
-begin
-  FLock.Enter;
-  try
-    ARef.Lock;
-    try
-      FThreads.Add(ARef);
-    finally
-      ARef.Unlock;
-    end;
-  finally
-    FLock.Leave;
-  end;
-end;
-
-procedure TfrmDemoHurtMyCpu.DeleteRef(ARef: TThreadRef);
-begin
-  FLock.Enter;
-  try
-    ARef.Lock;
-    try
-      FThreads.Delete(FThreads.IndexOf(ARef));
-    finally
-      ARef.Unlock;
-    end;
-  finally
-    FLock.Leave;
-  end;
-end;
-
-procedure TfrmDemoHurtMyCpu.UpdateRef(ARef: TThreadRef);
-begin
-  FLock.Enter;
-  try
-    //TODO...
-  finally
-    FLock.Leave;
   end;
 end;
 
@@ -199,9 +165,18 @@ procedure TfrmDemoHurtMyCpu.TmrTimer(Sender: TObject);
 var
   I: TListItem;
   X: Integer;
-  T: TThreadRef;
+  T: THurtMyCpuThread;
   Cpu: Double;
 begin
+  //We do all UI updates inside of a timer, rather than at the moment
+  //  of receiving events from the threads. This is because when events
+  //  are received, the calling worker thread is temporarily blocked until
+  //  the synchronized event is done and returns. Instead, all we do in
+  //  those events is capture the information in a variable, then later
+  //  use it in the timer to update controls in the UI (which is heavier).
+
+  //We also grab information about the current CPU usage, and update
+  //  a progress bar to reflect the current load.
 
   Cpu:= GetTotalCpuUsagePct;
   progCPU.Position:= Trunc(Cpu);
@@ -245,64 +220,55 @@ begin
   end;
 end;
 
-{$HINTS OFF}
-procedure TfrmDemoHurtMyCpu.DoSpawn(const CountTo: Integer);
+procedure TfrmDemoHurtMyCpu.AddRef(ARef: THurtMyCpuThread);
 begin
-
-  TThread.CreateAnonymousThread(
-    procedure
-    var
-      T: TThreadRef;
-      X, Y, Z: Int64;
-    begin
-      T:= TThreadRef.Create;
-      try
-        if FTerminated then Exit;
-        T.CountTo:= CountTo;
-        TThread.Synchronize(nil,
-          procedure
-          begin
-            AddRef(T);
-          end);
-        if FTerminated then Exit;
-        for X := 1 to CountTo do begin
-          if FTerminated or T.IsTerminated then Break;
-          {$IFDEF DBL_LVL}
-          for Y := 1 to MAXINT_JD do begin
-          {$ENDIF}
-            if FTerminated or T.IsTerminated then Break;
-            T.Lock;
-            try
-              if T.IsTerminated then Break;
-
-              //This is the calculation which actually hurts the CPU
-              //  by executing it rapidly with no delay over and over...
-              Z:= Round(X/2);
-
-              //TODO: Think of something heavier...
-
-              T.Cur:= X;
-            finally
-              T.Unlock;
-            end;
-          {$IFDEF DBL_LVL}
-          end;
-          {$ENDIF}
-        end;
-
-        if FTerminated then Exit;
-
-        TThread.Synchronize(nil,
-          procedure
-          begin
-            DeleteRef(T);
-          end);
-
-      finally
-        FreeAndNil(T);
-      end;
-    end).Start;
+  FLock.Enter;
+  try
+    ARef.Lock;
+    try
+      FThreads.Add(ARef);
+    finally
+      ARef.Unlock;
+    end;
+  finally
+    FLock.Leave;
+  end;
 end;
-{$HINTS ON}
+
+procedure TfrmDemoHurtMyCpu.DeleteRef(ARef: THurtMyCpuThread);
+begin
+  FLock.Enter;
+  try
+    ARef.Lock;
+    try
+      FThreads.Delete(FThreads.IndexOf(ARef));
+    finally
+      ARef.Unlock;
+    end;
+  finally
+    FLock.Leave;
+  end;
+end;
+
+procedure TfrmDemoHurtMyCpu.UpdateRef(ARef: THurtMyCpuThread);
+begin
+  FLock.Enter;
+  try
+    //TODO...
+  finally
+    FLock.Leave;
+  end;
+end;
+
+procedure TfrmDemoHurtMyCpu.DoSpawn(const CountTo: Integer);
+var
+  T: THurtMyCpuThread;
+begin
+  //Creates an actual instance of a thread which consumes 100% of a CPU core.
+  T:= THurtMyCpuThread.Create(CountTo);
+  T.OnAddRef:= AddRef;
+  T.OnDeleteRef:= DeleteRef;
+  T.Start;
+end;
 
 end.

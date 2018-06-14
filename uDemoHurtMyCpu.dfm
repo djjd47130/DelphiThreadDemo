@@ -169,8 +169,6 @@ inherited frmDemoHurtMyCpu: TfrmDemoHurtMyCpu
       Height = 27
       Align = alClient
       TabOrder = 3
-      ExplicitLeft = 568
-      ExplicitWidth = 209
     end
   end
   object Tmr: TTimer

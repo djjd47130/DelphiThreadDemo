@@ -6,61 +6,124 @@ uses
   System.Classes, System.SysUtils, System.SyncObjs;
 
 type
-  TThreadRef = class(TObject)
+  THurtMyCpuThread = class;
+
+  TThreadRefEvent = procedure(ARef: THurtMyCpuThread) of object;
+
+  TThreadIsTerminated = function: Boolean of object;
+
+  ///  <summary>
+  ///    A single thread with the sole purpose of consuming 100%
+  ///    of a single processor core (or divided among them as Windows does).
+  ///  </summary>
+  THurtMyCpuThread = class(TThread)
   private
-    FThreadID: Cardinal;
-    FCur: Integer;
+    FCountTo: Int64;
+    FCur: Int64;
     FLock: TCriticalSection;
-    FTerminated: Boolean;
-    FCountTo: Integer;
-    procedure SetCountTo(const Value: Integer);
+    FOnDeleteRef: TThreadRefEvent;
+    FOnAddRef: TThreadRefEvent;
+  protected
+    procedure Execute; override;
   public
-    constructor Create;
+    constructor Create(ACountTo: Int64); reintroduce;
     destructor Destroy; override;
-    procedure Terminate;
+    property Cur: Int64 read FCur;
+    property CountTo: Int64 read FCountTo write FCountTo;
     procedure Lock;
     procedure Unlock;
-    property ThreadID: Cardinal read FThreadID;
-    property IsTerminated: Boolean read FTerminated;
-    property Cur: Integer read FCur write FCur;
-    property CountTo: Integer read FCountTo write SetCountTo;
+  public
+    property OnAddRef: TThreadRefEvent read FOnAddRef write FOnAddRef;
+    property OnDeleteRef: TThreadRefEvent read FOnDeleteRef write FOnDeleteRef;
   end;
 
 implementation
 
-{ TThreadRef }
+{ THurtMyCpuThread }
 
-constructor TThreadRef.Create;
+constructor THurtMyCpuThread.Create(ACountTo: Int64);
 begin
+  inherited Create(True);
+  FCountTo:= ACountTo;
   FLock:= TCriticalSection.Create;
-  FCur:= 0;
-  FThreadID:= TThread.CurrentThread.ThreadID;
 end;
 
-destructor TThreadRef.Destroy;
+destructor THurtMyCpuThread.Destroy;
 begin
+  FLock.Enter;
+  try
+  finally
+    FLock.Leave;
+  end;
   FreeAndNil(FLock);
   inherited;
 end;
 
-procedure TThreadRef.SetCountTo(const Value: Integer);
+{$HINTS OFF}
+procedure THurtMyCpuThread.Execute;
+var
+  X, Z: Int64;
+  {$IFDEF DBL_LVL}
+  Y: Int64;
+  {$ENDIF}
 begin
-  FCountTo := Value;
-end;
 
-procedure TThreadRef.Terminate;
-begin
-  FTerminated:= True;
-end;
+  try
+    Synchronize(
+      procedure
+      begin
+        if Assigned(FOnAddRef) then
+          FOnAddRef(Self);
+      end);
 
-procedure TThreadRef.Unlock;
-begin
-  FLock.Leave;
-end;
+    for X := 1 to FCountTo do begin
+      if Terminated then Break;
+      {$IFDEF DBL_LVL}
+      for Y := 1 to MAXINT_JD do begin
+      {$ENDIF}
+        if Terminated then Break;
+        Lock;
+        try
+          if Terminated then Break;
 
-procedure TThreadRef.Lock;
+          //This is the calculation which actually hurts the CPU
+          //  by executing it rapidly with no delay over and over...
+          Z:= Round(X/2);
+
+          //TODO: Think of something heavier...
+
+          FCur:= X;
+        finally
+          Unlock;
+        end;
+      {$IFDEF DBL_LVL}
+      end;
+      {$ENDIF}
+    end;
+
+    Synchronize(
+      procedure
+      begin
+        if Assigned(FOnDeleteRef) then
+          FOnDeleteRef(Self);
+      end);
+
+  finally
+    FreeOnTerminate:= True;
+    Terminate;
+  end;
+
+end;
+{$HINTS ON}
+
+procedure THurtMyCpuThread.Lock;
 begin
   FLock.Enter;
+end;
+
+procedure THurtMyCpuThread.Unlock;
+begin
+  FLock.Leave;
 end;
 
 end.
