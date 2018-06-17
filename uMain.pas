@@ -56,8 +56,8 @@ begin
   {$IFDEF DEBUG}
   ReportMemoryLeaksOnShutdown:= True;
   {$ENDIF}
-  EmbedAllForms;
   Pages.Align:= alClient;
+  EmbedAllForms;
   Pages.ActivePageIndex:= 0;
   PagesChange(nil);
 end;
