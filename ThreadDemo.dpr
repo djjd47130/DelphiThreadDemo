@@ -23,7 +23,8 @@ uses
   HurtMyCpuThread in 'HurtMyCpuThread.pas',
   Common in 'Common.pas',
   UICommon in 'UICommon.pas',
-  CpuMonitor in 'CpuMonitor.pas';
+  CpuMonitor in 'CpuMonitor.pas',
+  ThreadPoolThread in 'ThreadPoolThread.pas';
 
 {$R *.res}
 

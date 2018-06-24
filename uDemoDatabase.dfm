@@ -1,26 +1,10 @@
 inherited frmDemoDatabase: TfrmDemoDatabase
   Caption = 'ADO Database Connections in Threads'
+  ClientHeight = 544
+  Constraints.MinHeight = 500
+  ExplicitHeight = 544
   PixelsPerInch = 96
   TextHeight = 13
-  object Label1: TLabel
-    AlignWithMargins = True
-    Left = 3
-    Top = 269
-    Width = 774
-    Height = 178
-    Align = alClient
-    Alignment = taCenter
-    Caption = 'Coming Soon'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -56
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-    Layout = tlCenter
-    ExplicitWidth = 370
-    ExplicitHeight = 68
-  end
   object Label12: TLabel
     AlignWithMargins = True
     Left = 10
@@ -37,7 +21,7 @@ inherited frmDemoDatabase: TfrmDemoDatabase
     Caption = 
       'ADO (and other DB components) cannot work across thread boundari' +
       'es. Therefore you must have a unique DB connection in each threa' +
-      'd.'
+      'd after initializing COM.'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
@@ -79,6 +63,7 @@ inherited frmDemoDatabase: TfrmDemoDatabase
       Cursor = crHandPoint
       Align = alRight
       Caption = '...'
+      OnClick = btnConnStrClick
       ExplicitLeft = 667
       ExplicitTop = 9
       ExplicitHeight = 22
@@ -116,15 +101,13 @@ inherited frmDemoDatabase: TfrmDemoDatabase
       ExplicitTop = 4
       ExplicitHeight = 23
     end
-    object Memo1: TMemo
+    object txtSql: TMemo
       AlignWithMargins = True
       Left = 106
       Top = 3
       Width = 671
       Height = 113
       Align = alClient
-      Lines.Strings = (
-        'select * from MyTable')
       ScrollBars = ssBoth
       TabOrder = 0
       WordWrap = False
@@ -150,5 +133,20 @@ inherited frmDemoDatabase: TfrmDemoDatabase
       TabOrder = 0
       OnClick = btnExecClick
     end
+  end
+  object gData: TStringGrid
+    AlignWithMargins = True
+    Left = 3
+    Top = 269
+    Width = 774
+    Height = 272
+    Align = alClient
+    ColCount = 1
+    FixedCols = 0
+    RowCount = 2
+    TabOrder = 3
+    ExplicitLeft = 0
+    ExplicitWidth = 780
+    ExplicitHeight = 204
   end
 end
