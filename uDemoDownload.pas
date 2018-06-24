@@ -7,6 +7,7 @@ uses
   System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
   Vcl.Buttons, Vcl.ExtCtrls,
+  ShellApi,
   uDemoBase,
   DownloadThread;
 
@@ -36,6 +37,7 @@ type
     procedure btnDownloadWithThreadClassClick(Sender: TObject);
     procedure btnDownloadWithAnonymousThreadClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Label2Click(Sender: TObject);
   private
     FMode: TDownloadMode;
     procedure DownloadFinished(Sender: TObject; const Success: Boolean);
@@ -67,6 +69,15 @@ begin
 
 end;
 
+procedure TfrmDemoDownload.Label2Click(Sender: TObject);
+var
+  URL: string;
+begin
+  Inherited;
+  URL := 'https://www.thinkbroadband.com/download';
+  ShellExecute(0, 'open', PChar(URL), nil, nil, SW_SHOWNORMAL);
+end;
+
 procedure TfrmDemoDownload.SetEnabledState(const Enabled: Boolean);
 begin
   inherited;
@@ -88,6 +99,7 @@ begin
 
   //Make sure the UI updates before the process starts...
   Application.ProcessMessages;
+
 end;
 
 procedure TfrmDemoDownload.btnDownloadSaveBrowseClick(Sender: TObject);
@@ -99,6 +111,7 @@ begin
   if dlgDownloadSave.Execute then begin
     Self.txtDownloadFilename.Text:= Self.dlgDownloadSave.FileName;
   end;
+
 end;
 
 procedure TfrmDemoDownload.btnDownloadWithoutThreadClick(Sender: TObject);
@@ -109,6 +122,7 @@ begin
 
   //Download the file without using any thread...
   FMode:= TDownloadMode.dmDirect;
+
   Self.SetEnabledState(False);
   try
     //Once you start this, the UI will freeze to a death...
@@ -116,8 +130,10 @@ begin
   finally
     SetEnabledState(True);
   end;
+
   //Signal UI that download is done...
   DownloadFinished(Self, Res);
+
 end;
 
 procedure TfrmDemoDownload.btnDownloadWithThreadClassClick(Sender: TObject);

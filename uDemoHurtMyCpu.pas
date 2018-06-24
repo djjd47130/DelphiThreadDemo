@@ -139,7 +139,7 @@ end;
 procedure TfrmDemoHurtMyCpu.pbCPUPaint(Sender: TObject);
 begin
   inherited;
-  DrawProgressBar(pbCPU.Canvas, pbCPU.Canvas.ClipRect, FCPU);
+  DrawProgressBar(pbCPU.Canvas, pbCPU.Canvas.ClipRect, FCPU, clGray, clNavy, 'CPU Usage');
 end;
 
 procedure TfrmDemoHurtMyCpu.btnSpawnClick(Sender: TObject);
@@ -186,46 +186,56 @@ begin
   //We also grab information about the current CPU usage, and update
   //  a progress bar to reflect the current load.
 
-  Cpu:= GetTotalCpuUsagePct;
-  FCPU:= Cpu;
-
-  FLock.Enter;
   try
 
-    //Ensure count matches
-    while lstThreads.Items.Count <> FThreads.Count do begin
-      if lstThreads.Items.Count < FThreads.Count then begin
-        //Add a new list item...
-        I:= lstThreads.Items.Add;
-        I.SubItems.Add('');
-        I.SubItems.Add('');
-        I.SubItems.Add('');
-      end else begin
-        //Delete a list item
-        if lstThreads.Items.Count > 0 then
-          lstThreads.Items.Delete(0);
+    Cpu:= GetTotalCpuUsagePct;
+    FCPU:= Cpu / 100;
+    pbCPU.Invalidate;
+
+    FLock.Enter;
+    try
+
+      //Ensure count matches
+      while lstThreads.Items.Count <> FThreads.Count do begin
+        if lstThreads.Items.Count < FThreads.Count then begin
+          //Add a new list item...
+          I:= lstThreads.Items.Add;
+          I.SubItems.Add('');
+          I.SubItems.Add('');
+          I.SubItems.Add('');
+        end else begin
+          //Delete a list item
+          if lstThreads.Items.Count > 0 then
+            lstThreads.Items.Delete(0);
+        end;
       end;
+
+      //Update list items to match objects...
+      for X := 0 to FThreads.Count-1 do begin
+        T:= FThreads[X];
+        I:= lstThreads.Items[X];
+        T.Lock;
+        try
+          I.Caption:= IntToStr(T.ThreadID);
+          I.SubItems[0]:= IntToStr(T.Cur);
+          I.SubItems[1]:= IntToStr(T.CountTo);
+          //I.SubItems[2]:= FormatFloat('0.000%', (T.Cur / T.CountTo) * 100);
+          I.Update;
+        finally
+          T.Unlock;
+        end;
+      end;
+
+    finally
+      FLock.Leave;
     end;
 
-    //Update list items to match objects...
-    for X := 0 to FThreads.Count-1 do begin
-      T:= FThreads[X];
-      I:= lstThreads.Items[X];
-      T.Lock;
-      try
-        I.Caption:= IntToStr(T.ThreadID);
-        I.SubItems[0]:= IntToStr(T.Cur);
-        I.SubItems[1]:= IntToStr(T.CountTo);
-        //I.SubItems[2]:= FormatFloat('0.000%', (T.Cur / T.CountTo) * 100);
-        I.Update;
-      finally
-        T.Unlock;
-      end;
-    end;
+  except
+    on E: Exception do begin
 
-  finally
-    FLock.Leave;
+    end;
   end;
+
 end;
 
 procedure TfrmDemoHurtMyCpu.AddRef(ARef: THurtMyCpuThread);

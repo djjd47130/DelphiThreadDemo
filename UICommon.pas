@@ -12,7 +12,8 @@ function ListViewCellRect(AListView: TCustomListView; AColIndex: Integer;
 
 procedure DrawProgressBar(const ACanvas: TCanvas; const ARect: TRect;
   const APercent: Single;
-  const ABackColor: TColor = clGray; const AForeColor: TColor = clNavy);
+  const ABackColor: TColor = clGray; const AForeColor: TColor = clNavy;
+  const AText: String = '');
 
 implementation
 
@@ -29,9 +30,11 @@ end;
 
 procedure DrawProgressBar(const ACanvas: TCanvas; const ARect: TRect;
   const APercent: Single;
-  const ABackColor: TColor = clGray; const AForeColor: TColor = clNavy);
+  const ABackColor: TColor = clGray; const AForeColor: TColor = clNavy;
+  const AText: String = '');
 var
-  BR, FR: TRect;
+  BR, FR, TR: TRect;
+  S: String;
 begin
   //Draw background
   BR:= ARect;
@@ -50,6 +53,19 @@ begin
   ACanvas.Pen.Style:= psClear;
   ACanvas.Brush.Color:= AForeColor;
   ACanvas.FillRect(FR);
+
+  //Draw text
+  TR:= BR;
+  ACanvas.Font.Color:= clWhite;
+  ACanvas.Font.Style:= [fsBold];
+  ACanvas.Font.Height:= ARect.Height - 6;
+  ACanvas.Pen.Style:= psSolid;
+  ACanvas.Brush.Style:= bsClear;
+  if AText = '' then
+    S:= FormatFloat('0%', APercent * 100)
+  else
+    S:= AText;
+  DrawText(ACanvas.Handle, PChar(S), Length(S), TR, DT_SINGLELINE or DT_CENTER or DT_VCENTER);
 
 end;
 

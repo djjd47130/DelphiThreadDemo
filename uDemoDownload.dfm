@@ -55,7 +55,9 @@ inherited frmDemoDownload: TfrmDemoDownload
     Font.Style = [fsUnderline]
     ParentFont = False
     StyleElements = [seClient, seBorder]
-    ExplicitWidth = 366
+    OnClick = Label2Click
+    ExplicitLeft = 8
+    ExplicitTop = 429
   end
   object Label12: TLabel
     AlignWithMargins = True
