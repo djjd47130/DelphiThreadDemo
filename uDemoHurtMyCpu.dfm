@@ -124,6 +124,19 @@ inherited frmDemoHurtMyCpu: TfrmDemoHurtMyCpu
       Layout = tlCenter
       ExplicitLeft = 241
     end
+    object pbCPU: TPaintBox
+      AlignWithMargins = True
+      Left = 423
+      Top = 3
+      Width = 354
+      Height = 27
+      Align = alClient
+      OnPaint = pbCPUPaint
+      ExplicitLeft = 584
+      ExplicitTop = 0
+      ExplicitWidth = 196
+      ExplicitHeight = 33
+    end
     object btnSpawn: TBitBtn
       AlignWithMargins = True
       Left = 3
@@ -160,15 +173,6 @@ inherited frmDemoHurtMyCpu: TfrmDemoHurtMyCpu
       TabOrder = 2
       Text = '2147483647'
       ExplicitHeight = 21
-    end
-    object progCPU: TProgressBar
-      AlignWithMargins = True
-      Left = 423
-      Top = 3
-      Width = 354
-      Height = 27
-      Align = alClient
-      TabOrder = 3
     end
   end
   object Tmr: TTimer

@@ -7,6 +7,7 @@ uses
   System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.StdCtrls,
   Vcl.ComCtrls, Vcl.ExtCtrls,
+  ShellApi,
   uDemoBase,
   uDemoDownload,
   uDemoProgress,
@@ -140,9 +141,11 @@ begin
 end;
 
 procedure TfrmMain.StatClick(Sender: TObject);
+var
+  URL: string;
 begin
-  //TODO: Open web page...
-
+  URL := 'https://github.com/djjd47130/DelphiThreadDemo';
+  ShellExecute(0, 'open', PChar(URL), nil, nil, SW_SHOWNORMAL);
 end;
 
 procedure TfrmMain.lstMenuSelectItem(Sender: TObject; Item: TListItem;

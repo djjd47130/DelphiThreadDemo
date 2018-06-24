@@ -55,10 +55,7 @@ end;
 procedure TfrmDemoDatabase.btnConnStrClick(Sender: TObject);
 begin
   inherited;
-  //TODO: Prompt for connection string...
-
   txtConnStr.Text:= PromptDataSource(Self.Handle, txtConnStr.Text);
-
 end;
 
 procedure TfrmDemoDatabase.btnExecClick(Sender: TObject);
@@ -124,6 +121,7 @@ begin
   btnExec.Enabled:= Enabled;
   txtConnStr.Enabled:= Enabled;
   txtSql.Enabled:= Enabled;
+  btnConnStr.Enabled:= Enabled;
 end;
 
 end.

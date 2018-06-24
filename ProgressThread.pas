@@ -3,7 +3,7 @@ unit ProgressThread;
 (*
   This unit demonstrates reporting progress of a lengthy task.
   It's done in 3 different ways:
-  - Directly, without any additional athread.
+  - Directly, without any additional thread.
   - Using a TThread class.
   - Using an Anonymous Thread.
 *)

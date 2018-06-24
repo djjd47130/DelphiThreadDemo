@@ -13,7 +13,7 @@ type
   TThreadIsTerminated = function: Boolean of object;
 
   ///  <summary>
-  ///    A single thread with the sole purpose of consuming 100%
+  ///    A simple thread with the sole purpose of consuming 100%
   ///    of a single processor core (or divided among them as Windows does).
   ///  </summary>
   THurtMyCpuThread = class(TThread)

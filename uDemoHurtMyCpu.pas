@@ -22,7 +22,7 @@ type
     Tmr: TTimer;
     Label12: TLabel;
     Bevel1: TBevel;
-    progCPU: TProgressBar;
+    pbCPU: TPaintBox;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -35,10 +35,12 @@ type
     procedure lstThreadsCustomDrawItem(Sender: TCustomListView; Item: TListItem;
       State: TCustomDrawState; var DefaultDraw: Boolean);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure pbCPUPaint(Sender: TObject);
   private
     FLock: TCriticalSection;
     FThreads: TObjectList<THurtMyCpuThread>;
     FTerminated: Boolean;
+    FCPU: Single;
     procedure DoSpawn(const CountTo: Integer);
   public
     procedure AddRef(ARef: THurtMyCpuThread);
@@ -134,6 +136,12 @@ begin
   end;
 end;
 
+procedure TfrmDemoHurtMyCpu.pbCPUPaint(Sender: TObject);
+begin
+  inherited;
+  DrawProgressBar(pbCPU.Canvas, pbCPU.Canvas.ClipRect, FCPU);
+end;
+
 procedure TfrmDemoHurtMyCpu.btnSpawnClick(Sender: TObject);
 var
   T: String;
@@ -179,7 +187,7 @@ begin
   //  a progress bar to reflect the current load.
 
   Cpu:= GetTotalCpuUsagePct;
-  progCPU.Position:= Trunc(Cpu);
+  FCPU:= Cpu;
 
   FLock.Enter;
   try
@@ -254,7 +262,7 @@ procedure TfrmDemoHurtMyCpu.UpdateRef(ARef: THurtMyCpuThread);
 begin
   FLock.Enter;
   try
-    //TODO...
+
   finally
     FLock.Leave;
   end;

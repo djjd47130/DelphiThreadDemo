@@ -155,6 +155,7 @@ object frmMain: TfrmMain
           TabOrder = 0
           ViewStyle = vsReport
           OnSelectItem = lstMenuSelectItem
+          ExplicitTop = 0
         end
       end
     end
