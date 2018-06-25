@@ -7,6 +7,8 @@ uses
   System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.StdCtrls,
   Vcl.ComCtrls, Vcl.ExtCtrls,
+  Vcl.ImgList,
+  System.ImageList,
   ShellApi,
   uDemoBase,
   uDemoDownload,
@@ -18,7 +20,7 @@ uses
   uDemoHttpServer,
   uDemoThreadQueue,
   uDemoOmniThreads,
-  uDemoHurtMyCpu, System.ImageList, Vcl.ImgList;
+  uDemoHurtMyCpu;
 
 type
   TfrmMain = class(TForm)

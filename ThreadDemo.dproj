@@ -111,60 +111,60 @@
             <Form>frmMain</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="DownloadThread.pas"/>
-        <DCCReference Include="ProgressThread.pas"/>
-        <DCCReference Include="uDemoBase.pas">
+        <DCCReference Include="Common\Common.pas"/>
+        <DCCReference Include="Common\UICommon.pas"/>
+        <DCCReference Include="Common\uDemoBase.pas">
             <Form>frmDemoBase</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uDemoDownload.pas">
+        <DCCReference Include="DemoDownload\DownloadThread.pas"/>
+        <DCCReference Include="DemoDownload\uDemoDownload.pas">
             <Form>frmDemoDownload</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uDemoProgress.pas">
-            <Form>frmDemoProgress</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="CriticalSectionThread.pas"/>
-        <DCCReference Include="uDemoCriticalSections.pas">
-            <Form>frmDemoCriticalSections</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="uDemoHttpServer.pas">
-            <Form>frmDemoHttpServer</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="uDemoWindowsMessages.pas">
-            <Form>frmDemoWindowsMessages</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="uDemoThreadPools.pas">
-            <Form>frmDemoThreadPools</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="uDemoDatabase.pas">
+        <DCCReference Include="DemoDatabase\DatabaseThread.pas"/>
+        <DCCReference Include="DemoDatabase\uDemoDatabase.pas">
             <Form>frmDemoDatabase</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uDemoThreadQueue.pas">
-            <Form>frmDemoThreadQueue</Form>
+        <DCCReference Include="DemoCriticalSections\CriticalSectionThread.pas"/>
+        <DCCReference Include="DemoCriticalSections\uDemoCriticalSections.pas">
+            <Form>frmDemoCriticalSections</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uDemoOmniThreads.pas">
-            <Form>frmDemoOmniThreads</Form>
+        <DCCReference Include="DemoHttpServer\HttpServerThread.pas"/>
+        <DCCReference Include="DemoHttpServer\uDemoHttpServer.pas">
+            <Form>frmDemoHttpServer</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="DatabaseThread.pas"/>
-        <DCCReference Include="uDemoHurtMyCpu.pas">
+        <DCCReference Include="DemoHurtMyCpu\CpuMonitor.pas"/>
+        <DCCReference Include="DemoHurtMyCpu\HurtMyCpuThread.pas"/>
+        <DCCReference Include="DemoHurtMyCpu\uDemoHurtMyCpu.pas">
             <Form>frmDemoHurtMyCpu</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="HurtMyCpuThread.pas"/>
-        <DCCReference Include="Common.pas"/>
-        <DCCReference Include="UICommon.pas"/>
-        <DCCReference Include="CpuMonitor.pas"/>
-        <DCCReference Include="ThreadPoolThread.pas"/>
-        <DCCReference Include="HttpServerThread.pas"/>
+        <DCCReference Include="DemoOmniThreads\uDemoOmniThreads.pas">
+            <Form>frmDemoOmniThreads</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="DemoProgress\ProgressThread.pas"/>
+        <DCCReference Include="DemoProgress\uDemoProgress.pas">
+            <Form>frmDemoProgress</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="DemoQueues\uDemoThreadQueue.pas">
+            <Form>frmDemoThreadQueue</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="DemoThreadPools\ThreadPoolThread.pas"/>
+        <DCCReference Include="DemoThreadPools\uDemoThreadPools.pas">
+            <Form>frmDemoThreadPools</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="DemoWindowsMessages\uDemoWindowsMessages.pas">
+            <Form>frmDemoWindowsMessages</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -203,27 +203,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployClass Name="DependencyModule">
-                    <Platform Name="Win32">
-                        <Operation>0</Operation>
-                        <Extensions>.dll;.bpl</Extensions>
-                    </Platform>
+                <DeployClass Name="ProjectiOSDeviceResourceRules">
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="OSX32">
-                        <RemoteDir>Contents\MacOS</RemoteDir>
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectOSXResource">
@@ -602,12 +587,27 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <DeployClass Name="ProjectiOSDeviceResourceRules">
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>

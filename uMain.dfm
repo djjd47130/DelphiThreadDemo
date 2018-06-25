@@ -34,10 +34,6 @@ object frmMain: TfrmMain
     OnChange = PagesChange
     object TabSheet8: TTabSheet
       Caption = ' Home '
-      ExplicitLeft = 8
-      ExplicitTop = 38
-      ExplicitWidth = 796
-      ExplicitHeight = 376
       object Label11: TLabel
         AlignWithMargins = True
         Left = 5
@@ -117,8 +113,6 @@ object frmMain: TfrmMain
             Value = 100.000000000000000000
           end>
         TabOrder = 0
-        ExplicitWidth = 790
-        ExplicitHeight = 247
         object lstMenu: TListView
           AlignWithMargins = True
           Left = 103
@@ -162,7 +156,6 @@ object frmMain: TfrmMain
           TabOrder = 0
           ViewStyle = vsReport
           OnSelectItem = lstMenuSelectItem
-          ExplicitHeight = 241
         end
       end
     end
@@ -179,13 +172,11 @@ object frmMain: TfrmMain
         Width = 50
       end>
     OnClick = StatClick
-    ExplicitTop = 438
-    ExplicitWidth = 804
   end
   object imgPages: TImageList
     Left = 704
     Bitmap = {
-      494C010101003800440010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010101003800480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000CFE9F93A2D9B
       E0FF2D9BE0FF2D9BE0FF39B2F7FF39B2F7FF39B2F7FF39B2F7FF39B2F7FF39B2
