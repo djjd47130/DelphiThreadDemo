@@ -18,7 +18,7 @@ uses
   uDemoHttpServer,
   uDemoThreadQueue,
   uDemoOmniThreads,
-  uDemoHurtMyCpu;
+  uDemoHurtMyCpu, System.ImageList, Vcl.ImgList;
 
 type
   TfrmMain = class(TForm)
@@ -29,6 +29,7 @@ type
     pMain: TGridPanel;
     lstMenu: TListView;
     Stat: TStatusBar;
+    imgPages: TImageList;
     procedure FormCreate(Sender: TObject);
     procedure PagesChange(Sender: TObject);
     procedure lstMenuSelectItem(Sender: TObject; Item: TListItem;
@@ -61,6 +62,8 @@ begin
   EmbedAllForms;
   Pages.ActivePageIndex:= 0;
   PagesChange(nil);
+  Width:= 1100;
+  Height:= 700;
 end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
@@ -97,6 +100,10 @@ begin
   F.Parent:= T;
   F.Align:= alClient;
   F.Show;
+  //Add image to tab...
+  //TODO: For some reason AddIcon is being dicky with choosing the right size...
+  imgPages.AddIcon(F.Icon);
+  T.ImageIndex:= imgPages.Count-1;
 end;
 
 procedure TfrmMain.FormResize(Sender: TObject);
@@ -136,6 +143,7 @@ begin
     F:= TfrmDemoBase(Pages.Pages[X].Controls[0]);
     I:= lstMenu.Items.Add;
     I.Caption:= F.Caption;
+    I.ImageIndex:= X;
   end;
   FormResize(nil);
 end;

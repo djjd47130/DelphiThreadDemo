@@ -24,7 +24,8 @@ uses
   Common in 'Common.pas',
   UICommon in 'UICommon.pas',
   CpuMonitor in 'CpuMonitor.pas',
-  ThreadPoolThread in 'ThreadPoolThread.pas';
+  ThreadPoolThread in 'ThreadPoolThread.pas',
+  HttpServerThread in 'HttpServerThread.pas';
 
 {$R *.res}
 

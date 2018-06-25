@@ -8,16 +8,10 @@ uses
   Vcl.Buttons, IdTCPConnection, IdTCPClient, IdHTTP, IdBaseComponent,
   IdComponent, IdCustomTCPServer, IdCustomHTTPServer, IdHTTPServer,
   IdContext,
+  HttpServerThread,
   Vcl.Samples.Spin, Vcl.ComCtrls;
 
 type
-
-  TMyContext = class(TIdServerContext)
-  private
-
-  public
-
-  end;
 
   TfrmDemoHttpServer = class(TfrmDemoBase)
     pMain: TPanel;
@@ -29,19 +23,21 @@ type
     btnSvrStart: TBitBtn;
     btnSvrStop: TBitBtn;
     Svr: TIdHTTPServer;
-    Cli: TIdHTTP;
     Panel4: TPanel;
     Label4: TLabel;
     sePort: TSpinEdit;
     lstClients: TListView;
     Label5: TLabel;
     Label12: TLabel;
+    lstConnections: TListView;
     procedure pMainResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSvrStartClick(Sender: TObject);
     procedure btnSvrStopClick(Sender: TObject);
+    procedure SvrConnect(AContext: TIdContext);
+    procedure SvrDisconnect(AContext: TIdContext);
   private
-    { Private declarations }
+
   public
     procedure SetEnabledState(const Enabled: Boolean); override;
   end;
@@ -94,6 +90,18 @@ begin
   btnSvrStop.Enabled:= Enabled;
   sePort.Enabled:= not Enabled;
 
+end;
+
+procedure TfrmDemoHttpServer.SvrConnect(AContext: TIdContext);
+begin
+  inherited;
+  //
+end;
+
+procedure TfrmDemoHttpServer.SvrDisconnect(AContext: TIdContext);
+begin
+  inherited;
+  //
 end;
 
 end.

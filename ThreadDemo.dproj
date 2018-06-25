@@ -164,6 +164,7 @@
         <DCCReference Include="UICommon.pas"/>
         <DCCReference Include="CpuMonitor.pas"/>
         <DCCReference Include="ThreadPoolThread.pas"/>
+        <DCCReference Include="HttpServerThread.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
