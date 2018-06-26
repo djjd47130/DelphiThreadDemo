@@ -72,7 +72,7 @@ Actually using the application is very simple. You just navigate to one of the t
 
 ### Downloading
 
-![Home](/Screenshots/SS-Downloading.png "Home")
+![Downloading](/Screenshots/SS-Downloading.png "Downloading")
 
 Shows how a file can be downloaded from the internet in a thread. There is a single universal function defined `DownloadFile()` which performs the download. The UI has 3 buttons:
 
@@ -84,7 +84,7 @@ By default, the URL to be downloaded is a test file provided by ThinkBroadband.c
 
 ### Progress Bar
 
-![Home](/Screenshots/SS-ProgressBar.png "Home")
+![Progress Bar](/Screenshots/SS-ProgressBar.png "Progress Bar")
 
 Shows how to update a progress bar from a thread which is performing a lengthy task.
 
@@ -102,7 +102,9 @@ Shows how to update a progress bar from a thread which is performing a lengthy t
 
 ### Database
 
-#### Coming Soon
+![Database](/Screenshots/SS-Database.png "Database")
+
+Demonstrates using a database connection within a thread and synchronizing data to the UI thread.
 
 ### HTTP Server
 
@@ -118,7 +120,7 @@ Shows how to update a progress bar from a thread which is performing a lengthy t
 
 ### Hurt My CPU
 
-![Home](/Screenshots/SS-HurtMyCpu.png "Home")
+![Hurt My CPU](/Screenshots/SS-HurtMyCpu.png "Hurt My CPU")
 
 Demonstrates multiple threads consuming massive CPU cycles to load test your processor. 
 
