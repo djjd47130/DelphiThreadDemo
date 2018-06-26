@@ -12,7 +12,7 @@ uses
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uDemoBase, Vcl.StdCtrls,
   Vcl.ExtCtrls, Vcl.Buttons, Vcl.Grids,
   ADODB,
-  DatabaseThread;
+  DatabaseThread, Vcl.ComCtrls, Vcl.Imaging.GIFImg;
 
 type
   TfrmDemoDatabase = class(TfrmDemoBase)
@@ -27,8 +27,12 @@ type
     Panel3: TPanel;
     btnExec: TBitBtn;
     gData: TStringGrid;
+    pSpinner: TPanel;
+    imgSpinner: TImage;
     procedure btnExecClick(Sender: TObject);
     procedure btnConnStrClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     procedure ThreadData(Sender: TObject; Dataset: TLightDataset);
     procedure ThreadException(Sender: TObject; E: Exception);
@@ -50,6 +54,21 @@ begin
   gData.RowCount:= 2;
   gData.ColCount:= 1;
   gData.Cols[0].Clear;
+end;
+
+procedure TfrmDemoDatabase.FormCreate(Sender: TObject);
+begin
+  inherited;
+  imgSpinner.Align:= alClient;
+  pSpinner.Width:= 300;
+  pSpinner.Height:= 300;
+end;
+
+procedure TfrmDemoDatabase.FormResize(Sender: TObject);
+begin
+  inherited;
+  pSpinner.Left:= (ClientWidth div 2) - (pSpinner.Width div 2);
+  pSpinner.Top:= (ClientHeight div 2) - (pSpinner.Height div 2);
 end;
 
 procedure TfrmDemoDatabase.btnConnStrClick(Sender: TObject);
@@ -79,6 +98,17 @@ begin
 
 end;
 
+procedure TfrmDemoDatabase.SetEnabledState(const Enabled: Boolean);
+begin
+  inherited;
+  btnExec.Enabled:= Enabled;
+  txtConnStr.Enabled:= Enabled;
+  txtSql.Enabled:= Enabled;
+  btnConnStr.Enabled:= Enabled;
+  pSpinner.Visible:= not Enabled;
+  TGifImage(imgSpinner.Picture.Graphic).Animate:= not Enabled;
+end;
+
 procedure TfrmDemoDatabase.ThreadData(Sender: TObject; Dataset: TLightDataset);
 begin
   //Received dataset response from thread...
@@ -100,7 +130,10 @@ begin
 
   //Set grid size...
   gData.ColCount:= AData.ColCount;
-  gData.RowCount:= AData.RowCount+1;
+  if AData.RowCount > 1 then
+    gData.RowCount:= AData.RowCount+1
+  else
+    gData.RowCount:= 2;
 
   //Column headers...
   for X := 0 to AData.ColCount-1 do begin
@@ -113,15 +146,6 @@ begin
     gData.Rows[X+1].Assign(AData.Rows[X]);
   end;
 
-end;
-
-procedure TfrmDemoDatabase.SetEnabledState(const Enabled: Boolean);
-begin
-  inherited;
-  btnExec.Enabled:= Enabled;
-  txtConnStr.Enabled:= Enabled;
-  txtSql.Enabled:= Enabled;
-  btnConnStr.Enabled:= Enabled;
 end;
 
 end.
