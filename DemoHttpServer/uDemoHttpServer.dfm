@@ -3340,9 +3340,9 @@ inherited frmDemoHttpServer: TfrmDemoHttpServer
   object Label5: TLabel
     AlignWithMargins = True
     Left = 3
-    Top = 379
+    Top = 352
     Width = 774
-    Height = 68
+    Height = 95
     Align = alBottom
     Alignment = taCenter
     Caption = 'Coming Soon'
@@ -3353,8 +3353,6 @@ inherited frmDemoHttpServer: TfrmDemoHttpServer
     Font.Style = [fsBold]
     ParentFont = False
     Layout = tlCenter
-    ExplicitTop = 304
-    ExplicitWidth = 370
   end
   object Label12: TLabel
     AlignWithMargins = True
@@ -3514,7 +3512,6 @@ inherited frmDemoHttpServer: TfrmDemoHttpServer
       Height = 198
       Align = alRight
       TabOrder = 1
-      ExplicitTop = 3
       object Label3: TLabel
         AlignWithMargins = True
         Left = 4

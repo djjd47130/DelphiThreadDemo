@@ -3213,6 +3213,7 @@ inherited frmDemoProgress: TfrmDemoProgress
     Top = 78
     Width = 774
     Height = 25
+    Hint = 'Current progress'
     Align = alTop
     TabOrder = 0
   end
@@ -3231,6 +3232,7 @@ inherited frmDemoProgress: TfrmDemoProgress
       Width = 217
       Height = 35
       Cursor = crHandPoint
+      Hint = 'Do a long task without using any thread'
       Align = alLeft
       BiDiMode = bdLeftToRight
       Caption = 'Progress Without Thread'
@@ -3245,6 +3247,7 @@ inherited frmDemoProgress: TfrmDemoProgress
       Width = 217
       Height = 35
       Cursor = crHandPoint
+      Hint = 'Do a long task using a worker thread class'
       Align = alLeft
       Caption = 'Progress With Thread Class'
       TabOrder = 1
@@ -3257,6 +3260,7 @@ inherited frmDemoProgress: TfrmDemoProgress
       Width = 217
       Height = 35
       Cursor = crHandPoint
+      Hint = 'Do a long task using an anonymous thread'
       Align = alLeft
       Caption = 'Progress With Anonymous Thread'
       Enabled = False

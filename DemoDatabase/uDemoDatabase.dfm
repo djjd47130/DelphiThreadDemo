@@ -5261,6 +5261,7 @@ inherited frmDemoDatabase: TfrmDemoDatabase
       Width = 27
       Height = 25
       Cursor = crHandPoint
+      Hint = 'Build connection string'
       Align = alRight
       Caption = '...'
       OnClick = btnConnStrClick
@@ -5272,9 +5273,9 @@ inherited frmDemoDatabase: TfrmDemoDatabase
       Top = 3
       Width = 638
       Height = 25
+      Hint = 'Assign the connection string for ADO to connect to'
       Align = alClient
       TabOrder = 0
-      ExplicitWidth = 642
       ExplicitHeight = 21
     end
   end
@@ -5306,6 +5307,7 @@ inherited frmDemoDatabase: TfrmDemoDatabase
       Top = 3
       Width = 671
       Height = 113
+      Hint = 'SQL query to be executed'
       Align = alClient
       ScrollBars = ssBoth
       TabOrder = 0
@@ -5327,6 +5329,9 @@ inherited frmDemoDatabase: TfrmDemoDatabase
       Width = 134
       Height = 35
       Cursor = crHandPoint
+      Hint = 
+        'Execute the given query on the given connection string and show ' +
+        'result'
       Align = alRight
       Caption = 'Execute Query'
       TabOrder = 0
@@ -5339,13 +5344,13 @@ inherited frmDemoDatabase: TfrmDemoDatabase
     Top = 269
     Width = 774
     Height = 272
+    Hint = 'Result dataset'
     Align = alClient
     ColCount = 1
     FixedCols = 0
     RowCount = 2
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing]
     TabOrder = 3
-    ExplicitLeft = -2
     ColWidths = (
       64)
     RowHeights = (

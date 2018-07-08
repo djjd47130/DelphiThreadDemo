@@ -32,6 +32,8 @@ procedure DrawProgressBar(const ACanvas: TCanvas; const ARect: TRect;
   const APercent: Single;
   const ABackColor: TColor = clGray; const AForeColor: TColor = clNavy;
   const AText: String = '');
+const
+  DRAW_FLAGS = DT_SINGLELINE or DT_CENTER or DT_VCENTER;
 var
   BR, FR, TR: TRect;
   S: String;
@@ -59,13 +61,13 @@ begin
   ACanvas.Font.Color:= clWhite;
   ACanvas.Font.Style:= [fsBold];
   ACanvas.Font.Height:= ARect.Height - 6;
-  ACanvas.Pen.Style:= psSolid;
+  ACanvas.Pen.Style:= psClear;
   ACanvas.Brush.Style:= bsClear;
   if AText = '' then
     S:= FormatFloat('0%', APercent * 100)
   else
     S:= AText;
-  DrawText(ACanvas.Handle, PChar(S), Length(S), TR, DT_SINGLELINE or DT_CENTER or DT_VCENTER);
+  DrawText(ACanvas.Handle, PChar(S), Length(S), TR, DRAW_FLAGS);
 
 end;
 

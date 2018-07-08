@@ -3501,19 +3501,6 @@ inherited frmDemoHurtMyCpu: TfrmDemoHurtMyCpu
       Layout = tlCenter
       ExplicitLeft = 241
     end
-    object pbCPU: TPaintBox
-      AlignWithMargins = True
-      Left = 423
-      Top = 3
-      Width = 354
-      Height = 27
-      Align = alClient
-      OnPaint = pbCPUPaint
-      ExplicitLeft = 584
-      ExplicitTop = 0
-      ExplicitWidth = 196
-      ExplicitHeight = 33
-    end
     object btnSpawn: TBitBtn
       AlignWithMargins = True
       Left = 3
@@ -3521,6 +3508,7 @@ inherited frmDemoHurtMyCpu: TfrmDemoHurtMyCpu
       Width = 121
       Height = 27
       Cursor = crHandPoint
+      Hint = 'Creates a new thread to consume CPU cycles'
       Align = alLeft
       Caption = 'Spawn a Thread'
       TabOrder = 0
@@ -3533,6 +3521,7 @@ inherited frmDemoHurtMyCpu: TfrmDemoHurtMyCpu
       Width = 121
       Height = 27
       Cursor = crHandPoint
+      Hint = 'Stops all currently running threads'
       Align = alLeft
       Caption = 'Stop All Threads'
       TabOrder = 1
@@ -3544,6 +3533,7 @@ inherited frmDemoHurtMyCpu: TfrmDemoHurtMyCpu
       Top = 7
       Width = 94
       Height = 19
+      Hint = 'Specifies the number to count up to (Default = Max Int)'
       Margins.Top = 7
       Margins.Bottom = 7
       Align = alLeft

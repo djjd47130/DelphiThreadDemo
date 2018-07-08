@@ -3316,6 +3316,7 @@ inherited frmDemoDownload: TfrmDemoDownload
       Top = 22
       Width = 768
       Height = 21
+      Hint = 'URL of file to be downloaded (Default = test file)'
       Align = alTop
       TabOrder = 0
       Text = 'http://ipv4.download.thinkbroadband.com/100MB.zip'
@@ -3352,6 +3353,7 @@ inherited frmDemoDownload: TfrmDemoDownload
       Width = 23
       Height = 22
       Cursor = crHandPoint
+      Hint = 'Browse for full path and filename'
       Anchors = [akTop, akRight]
       Caption = '...'
       OnClick = btnDownloadSaveBrowseClick
@@ -3362,6 +3364,7 @@ inherited frmDemoDownload: TfrmDemoDownload
       Top = 20
       Width = 662
       Height = 21
+      Hint = 'Full path and filename to save downloaded file'
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 0
     end
@@ -3381,6 +3384,7 @@ inherited frmDemoDownload: TfrmDemoDownload
       Width = 217
       Height = 35
       Cursor = crHandPoint
+      Hint = 'Download the file without using any worker thread'
       Align = alLeft
       Caption = 'Download Without Thread'
       TabOrder = 0
@@ -3393,6 +3397,7 @@ inherited frmDemoDownload: TfrmDemoDownload
       Width = 217
       Height = 35
       Cursor = crHandPoint
+      Hint = 'Download the file using a worker thread class'
       Align = alLeft
       Caption = 'Download With Thread Class'
       TabOrder = 1
@@ -3405,6 +3410,7 @@ inherited frmDemoDownload: TfrmDemoDownload
       Width = 217
       Height = 35
       Cursor = crHandPoint
+      Hint = 'Download the file using an anonymous thread'
       Align = alLeft
       Caption = 'Download With Anonymous Thread'
       TabOrder = 2

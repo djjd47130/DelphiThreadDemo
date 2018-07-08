@@ -14,6 +14,8 @@ type
     FReq: TIdHttpRequestInfo;
     FRes: TIdHttpResponseInfo;
   public
+    procedure Init;
+    procedure Uninit;
     procedure HandleCmd(AReq: TIdHttpRequestInfo; ARes: TIdHttpResponseInfo);
   end;
 
@@ -23,6 +25,8 @@ type
     FPort: Integer;
     procedure SvrCommand(AContext: TIdContext;
       ARequestInfo: TIdHTTPRequestInfo; AResponseInfo: TIdHTTPResponseInfo);
+    procedure SvrConnect(AContext: TIdContext);
+    procedure SvrDisconnect(AContext: TIdContext);
     procedure SetPort(const Value: Integer);
   protected
     procedure Execute; override;
@@ -48,11 +52,42 @@ implementation
 
 procedure TSvrContext.HandleCmd(AReq: TIdHttpRequestInfo;
   ARes: TIdHttpResponseInfo);
+var
+  L: TStringList;
+  X: Integer;
+  procedure A(const S: String);
+  begin
+    L.Append(S);
+  end;
 begin
   FReq:= AReq;
   FRes:= ARes;
   //TODO: Respond with massive amounts of random data...
 
+  L:= TStringList.Create;
+  try
+    A(AReq.URI);
+    A('');
+    for X := 1 to 10000 do begin
+      A('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+    end;
+    ARes.ContentText:= L.Text;
+    ARes.ContentType:= 'text/plain';
+  finally
+    L.Free;
+  end;
+
+end;
+
+procedure TSvrContext.Init;
+begin
+  //This is where you can initialize things within the context of this thread.
+
+end;
+
+procedure TSvrContext.Uninit;
+begin
+  //On the contrary, make sure anything initialized above is uninitialized here.
 
 end;
 
@@ -72,6 +107,8 @@ begin
     FSvr.DefaultPort:= FPort;
     FSvr.OnCommandGet:= SvrCommand;
     FSvr.OnCommandOther:= SvrCommand;
+    FSvr.OnConnect:= SvrConnect;
+    FSvr.OnDisconnect:= SvrDisconnect;
     FSvr.Active:= True;
     try
       while not Terminated do begin
@@ -94,6 +131,22 @@ begin
   FPort := Value;
 end;
 
+procedure TSvrThread.SvrConnect(AContext: TIdContext);
+var
+  C: TSvrContext;
+begin
+  C:= TSvrContext(AContext);
+  C.Init;
+end;
+
+procedure TSvrThread.SvrDisconnect(AContext: TIdContext);
+var
+  C: TSvrContext;
+begin
+  C:= TSvrContext(AContext);
+  C.Uninit;
+end;
+
 procedure TSvrThread.SvrCommand(AContext: TIdContext;
   ARequestInfo: TIdHTTPRequestInfo; AResponseInfo: TIdHTTPResponseInfo);
 var
@@ -108,7 +161,7 @@ end;
 constructor TCliThread.Create;
 begin
   inherited Create(True);
-
+  FResource:= '/GetSomething';
 end;
 
 procedure TCliThread.Execute;

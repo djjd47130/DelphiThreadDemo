@@ -22,7 +22,6 @@ type
     Tmr: TTimer;
     Label12: TLabel;
     Bevel1: TBevel;
-    pbCPU: TPaintBox;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -35,12 +34,10 @@ type
     procedure lstThreadsCustomDrawItem(Sender: TCustomListView; Item: TListItem;
       State: TCustomDrawState; var DefaultDraw: Boolean);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-    procedure pbCPUPaint(Sender: TObject);
   private
     FLock: TCriticalSection;
     FThreads: TObjectList<THurtMyCpuThread>;
     FTerminated: Boolean;
-    FCPU: Single;
     procedure DoSpawn(const CountTo: Integer);
   public
     procedure AddRef(ARef: THurtMyCpuThread);
@@ -136,12 +133,6 @@ begin
   end;
 end;
 
-procedure TfrmDemoHurtMyCpu.pbCPUPaint(Sender: TObject);
-begin
-  inherited;
-  DrawProgressBar(pbCPU.Canvas, pbCPU.Canvas.ClipRect, FCPU, clGray, clNavy, 'CPU Usage');
-end;
-
 procedure TfrmDemoHurtMyCpu.btnSpawnClick(Sender: TObject);
 var
   T: String;
@@ -174,7 +165,6 @@ var
   I: TListItem;
   X: Integer;
   T: THurtMyCpuThread;
-  Cpu: Double;
 begin
   //We do all UI updates inside of a timer, rather than at the moment
   //  of receiving events from the threads. This is because when events
@@ -187,10 +177,6 @@ begin
   //  a progress bar to reflect the current load.
 
   try
-
-    Cpu:= GetTotalCpuUsagePct;
-    FCPU:= Cpu / 100;
-    pbCPU.Invalidate;
 
     FLock.Enter;
     try

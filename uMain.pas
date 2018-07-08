@@ -3,13 +3,14 @@ unit uMain;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages,
-  System.SysUtils, System.Variants, System.Classes,
+  Winapi.Windows, Winapi.Messages, Winapi.ShellApi,
+  System.SysUtils, System.Variants, System.Classes, System.ImageList,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.StdCtrls,
-  Vcl.ComCtrls, Vcl.ExtCtrls,
-  Vcl.ImgList,
-  System.ImageList,
-  ShellApi,
+  Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.ImgList,
+
+  UICommon,
+  CpuMonitor,
+
   uDemoBase,
   uDemoDownload,
   uDemoProgress,
@@ -20,7 +21,9 @@ uses
   uDemoHttpServer,
   uDemoThreadQueue,
   uDemoOmniThreads,
-  uDemoHurtMyCpu;
+  uDemoHurtMyCpu,
+  uDemoCapture
+  ;
 
 type
   TfrmMain = class(TForm)
@@ -31,7 +34,11 @@ type
     pMain: TGridPanel;
     lstMenu: TListView;
     Stat: TStatusBar;
-    imgPages: TImageList;
+    imgPagesSmall: TImageList;
+    imgPagesLarge: TImageList;
+    Label2: TLabel;
+    pbCPU: TPaintBox;
+    Tmr: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure PagesChange(Sender: TObject);
     procedure lstMenuSelectItem(Sender: TObject; Item: TListItem;
@@ -39,7 +46,10 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure StatClick(Sender: TObject);
+    procedure pbCPUPaint(Sender: TObject);
+    procedure TmrTimer(Sender: TObject);
   private
+    FCpu: Double;
     procedure EmbedForm(AFormClass: TDemoFormClass;
       ACaption: String);
     procedure PopulateMenu;
@@ -64,8 +74,8 @@ begin
   EmbedAllForms;
   Pages.ActivePageIndex:= 0;
   PagesChange(nil);
-  Width:= 1100;
-  Height:= 700;
+  Width:= 1200;
+  Height:= 720;
 end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
@@ -75,16 +85,21 @@ end;
 
 procedure TfrmMain.EmbedAllForms;
 begin
-  EmbedForm(TfrmDemoDownload,         'Downloading');
-  EmbedForm(TfrmDemoProgress,         'Progress Bar');
-  EmbedForm(TfrmDemoCriticalSections, 'Critical Sections');
+  imgPagesSmall.Clear;
+  imgPagesLarge.Clear;
+  imgPagesSmall.AddIcon(Application.Icon);
+  imgPagesLarge.AddIcon(Application.Icon);
+  EmbedForm(TfrmDemoDownload,         'Download');
+  EmbedForm(TfrmDemoProgress,         'Progress');
+  EmbedForm(TfrmDemoCriticalSections, 'Critical Section');
   EmbedForm(TfrmDemoWindowsMessages,  'Windows Messages');
   EmbedForm(TfrmDemoThreadQueue,      'Queues');
   EmbedForm(TfrmDemoDatabase,         'Database');
   EmbedForm(TfrmDemoHttpServer,       'HTTP Server');
-  EmbedForm(TfrmDemoThreadPools,      'Thread Pools');
-  EmbedForm(TfrmDemoOmniThreads,      'Omni Threads');
+  EmbedForm(TfrmDemoThreadPools,      'Thread Pool');
+  EmbedForm(TfrmDemoOmniThreads,      'Omni Thread');
   EmbedForm(TfrmDemoHurtMyCpu,        'Hurt My CPU');
+  EmbedForm(TfrmDemoCapture,          'Capture');
 end;
 
 procedure TfrmMain.EmbedForm(AFormClass: TDemoFormClass;
@@ -104,8 +119,10 @@ begin
   F.Show;
   //Add image to tab...
   //TODO: For some reason AddIcon is being dicky with choosing the right size...
-  imgPages.AddIcon(F.Icon);
-  T.ImageIndex:= imgPages.Count-1;
+  imgPagesSmall.AddIcon(F.Icon);
+  imgPagesLarge.AddIcon(F.Icon);
+  T.ImageIndex:= imgPagesSmall.Count-1;
+  T.Hint:= F.Caption;
 end;
 
 procedure TfrmMain.FormResize(Sender: TObject);
@@ -131,7 +148,7 @@ begin
     if W > Result then
       Result:= W;
   end;
-  Result:= Result + 32;
+  Result:= Result + 42;
 end;
 
 procedure TfrmMain.PopulateMenu;
@@ -158,6 +175,13 @@ begin
   ShellExecute(0, 'open', PChar(URL), nil, nil, SW_SHOWNORMAL);
 end;
 
+procedure TfrmMain.TmrTimer(Sender: TObject);
+begin
+  FCpu:= GetTotalCpuUsagePct;
+  FCpu:= FCpu / 100;
+  pbCPU.Invalidate;
+end;
+
 procedure TfrmMain.lstMenuSelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
 begin
@@ -180,6 +204,11 @@ begin
     S:= F.Caption;
   end;
   Caption:= 'JD Thread Demo - ' + S;
+end;
+
+procedure TfrmMain.pbCPUPaint(Sender: TObject);
+begin
+  DrawProgressBar(pbCPU.Canvas, pbCPU.Canvas.ClipRect, FCPU, clGray, clNavy, 'CPU Usage');
 end;
 
 end.

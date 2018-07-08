@@ -25,13 +25,15 @@ uses
   uDemoThreadQueue in 'DemoQueues\uDemoThreadQueue.pas' {frmDemoThreadQueue},
   ThreadPoolThread in 'DemoThreadPools\ThreadPoolThread.pas',
   uDemoThreadPools in 'DemoThreadPools\uDemoThreadPools.pas' {frmDemoThreadPools},
-  uDemoWindowsMessages in 'DemoWindowsMessages\uDemoWindowsMessages.pas' {frmDemoWindowsMessages};
+  uDemoWindowsMessages in 'DemoWindowsMessages\uDemoWindowsMessages.pas' {frmDemoWindowsMessages},
+  uDemoCapture in 'DemoCapture\uDemoCapture.pas' {frmDemoCapture};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  TStyleManager.TrySetStyle('Light');
   Application.Title := 'JD Thread Demo';
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;

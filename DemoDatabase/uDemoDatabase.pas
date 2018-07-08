@@ -82,11 +82,8 @@ var
   T: TDatabaseThread;
 begin
   inherited;
-
   SetEnabledState(False);
-
   ClearGrid;
-
   T:= TDatabaseThread.Create;
   T.ConnStr:= Self.txtConnStr.Text;
   T.Sql.Assign(Self.txtSql.Lines);
@@ -95,7 +92,6 @@ begin
   T.FreeOnTerminate:= True;
   T.Start;
   //DO NOT TRY TO ACCESS T AFTER THIS POINT since it's FreeOnTerminate
-
 end;
 
 procedure TfrmDemoDatabase.SetEnabledState(const Enabled: Boolean);
