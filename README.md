@@ -1,4 +1,4 @@
-# DelphiThreadDemo
+# Delphi Thread Demo
 Demonstrating different ways to use threads in Delphi
 
 ![Thread](/ThreadIcon.png "Thread")
