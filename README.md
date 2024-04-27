@@ -7,7 +7,7 @@ Demonstrating different ways to use threads in Delphi
 
 # NO!
 
-### And the same applies for Firemonkey.
+### And the same applies for Firemonkey, or pretty much any framework in any programming language.
 
 Far too many Delphi users make the mistake of thinking a thread is some sort of magic that will improve the performance of their application. Unfortunately, this is far from true. The #1 biggest mistake when trying to implement a thread is making it directly access visual controls of the application. But these visual controls can only work in the context of the application's main thread. Using another thread to update controls in the user interface must be very carefully planned and implemented. And in most cases, it probably isn't the right solution to the problem at all.
 
